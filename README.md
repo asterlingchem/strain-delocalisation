@@ -86,7 +86,7 @@ This readme contains information on the supporting data that accompanies the man
 
 #### main.py
 
-"main.py" is a script to plot all figures. Multiple linear regression is carried out using the [Scikit-learn](https://scikit-learn.org/stable/) Python package, and plotting is done using [Matplotlib](). "main.py" can either be run interactively, or to generate all plots, run:
+"main.py" is a script to plot all figures. Multiple linear regression is carried out using the [Scikit-learn](https://scikit-learn.org/stable/) Python package, and plotting is done using [Matplotlib](https://matplotlib.org). "main.py" can either be run interactively, or to generate all plots, run:
 
 >	for i in {1..14}; do echo $i | python main.py -v; done
 

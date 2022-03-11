@@ -74,9 +74,15 @@ This readme contains information on the supporting data that accompanies the man
 	energies.xlsx
 
 	main.py
+	
+	Supporting_Information.pdf
 
 
 ### File descriptions
+
+#### Supporting_Information.pdf
+
+"[Supporting_Information.pdf](https://github.com/duartegroup/strain-delocalisation/blob/main/Supporting_Information.pdf)" contains a detailed description of the methodologies employed in this work, as well as supplementary figures, tables, and references.
 
 #### main.py
 
@@ -85,44 +91,30 @@ This readme contains information on the supporting data that accompanies the man
 >	for i in {1..14}; do echo $i | python main.py -v; done
 
 Plots are generated inside the “pdfs” directory. Each plot contains the following:
-+ Plot 1: y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (CH3• addition)
-![plot1](/pds/Plot1.pdf)
-+ Plot 2: y = ∆H‡, x0 = ∆H0, x1 = 1-ELF (CH3• addition)
-![plot2](/pdfs/Plot2.pdf)
-+ Plot 3: y = ∆H‡, x0 = ∆H0, x1 = n3 (CH3• addition)
-![plot3](/pdfs/Plot3.pdf)
-+ Plot 4: y = ∆H‡, x0 = ∆H0 (CH3• addition); ∆Hr vs ∆H‡
-![plot4](/pdfs/Plot4.pdf)
-+ Plot 5: y = ∆H‡, x0 = ∆H0 (CH3• addition); ∆H‡ calc vs pred
-![plot5](/pdfs/Plot5.pdf)
-+ Plot 6: y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc, x2 = (∆H0)^2 (CH3• addition)
-![plot6](/pdfs/Plot6.pdf)
-+ Plot 7: y = ∆H‡, x0 = ∆H0, x1 = 1-ELF, x2 = (∆H0)^2 (CH3• addition)
-![plot7](/pdfs/Plot7.pdf)
-+ Plot 8: y = ∆H‡, x0 = (∆r‡)^2 (CH3• addition)
-![plot8](/pdfs/Plot8.pdf)
-+ Plot 9: y = ∆H‡, x0 = ∆H0, x1 = n3 (NH2- addition)
-![plot9](/pdfs/Plot9.pdf)
-+ Plot 10: y = Marcus Ea error, x0 = n3 (heterosubstitution)
-![plot10](/pdfs/Plot10.pdf)
-+ Plot 11: y = ∆H‡, x0 = ∆H0, x1 = (∆H0)^2 (CH3• addition)
-![plot11](/pdfs/Plot11.pdf)
-+ Plot 12: y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (NH2- addition)
-![plot12](/pdfs/Plot12.pdf)
-+ Plot 13: y = ∆H‡, x0 = ∆H0 (cycloaddition); ∆H‡ calc vs pred
-![plot13](/pdfs/Plot13.pdf)
-+ Plot 14: y =∆H‡, x0 = ∆H0, x1 = mean 2-Nocc (cycloaddition)
-![plot14](/pdfs/Plot14.pdf)
++ [Plot 1](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot1.pdf): y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (CH3• addition)
++ [Plot 2](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot2.pdf): y = ∆H‡, x0 = ∆H0, x1 = 1-ELF (CH3• addition)
++ [Plot 3](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot3.pdf): y = ∆H‡, x0 = ∆H0, x1 = n3 (CH3• addition)
++ [Plot 4](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot4.pdf): y = ∆H‡, x0 = ∆H0 (CH3• addition); ∆Hr vs ∆H‡
++ [Plot 5](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot5.pdf): y = ∆H‡, x0 = ∆H0 (CH3• addition); ∆H‡ calc vs pred
++ [Plot 6](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot6.pdf): y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc, x2 = (∆H0)^2 (CH3• addition)
++ [Plot 7](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot7.pdf): y = ∆H‡, x0 = ∆H0, x1 = 1-ELF, x2 = (∆H0)^2 (CH3• addition)
++ [Plot 8](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot8.pdf): y = ∆H‡, x0 = (∆r‡)^2 (CH3• addition)
++ [Plot 9](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot9.pdf): y = ∆H‡, x0 = ∆H0, x1 = n3 (NH2- addition)
++ [Plot 10](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot10.pdf): y = Marcus Ea error, x0 = n3 (heterosubstitution)
++ [Plot 11](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot11.pdf): y = ∆H‡, x0 = ∆H0, x1 = (∆H0)^2 (CH3• addition)
++ [Plot 12](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot12.pdf): y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (NH2- addition)
++ [Plot 13](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot13.pdf): y = ∆H‡, x0 = ∆H0 (cycloaddition); ∆H‡ calc vs pred
++ [Plot 14](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot14.pdf): y =∆H‡, x0 = ∆H0, x1 = mean 2-Nocc (cycloaddition)
 
 
 #### Cartesian coordinates
 
-The directory CartesianCoordinates contains all xyz files generated in this study, split into subdirectories (CCl3_addition, CH3_addition, Cycloaddition, NH2_addition, Strain_database). The numbering of molecules in “Strain_database” follows that defined in “smiles.csv” contained within the same subdirectory. Geometries were optimised at the levels of theory described in the corresponding tabs in “energies.xlsx”, the Supporting Information, and below in this readme.
+The directory [CartesianCoordinates](https://github.com/duartegroup/strain-delocalisation/tree/main/CartesianCoordinates) contains all xyz files generated in this study, split into subdirectories ([CCl3_addition](https://github.com/duartegroup/strain-delocalisation/tree/main/CartesianCoordinates/CCl3_addition), [CH3_addition](https://github.com/duartegroup/strain-delocalisation/tree/main/CartesianCoordinates/CH3_addition), [Cycloaddition](https://github.com/duartegroup/strain-delocalisation/tree/main/CartesianCoordinates/Cycloaddition), [NH2_addition](https://github.com/duartegroup/strain-delocalisation/tree/main/CartesianCoordinates/NH2_addition), [Strain_database](https://github.com/duartegroup/strain-delocalisation/tree/main/CartesianCoordinates/Strain_database)). The numbering of molecules in “[Strain_database](https://github.com/duartegroup/strain-delocalisation/tree/main/CartesianCoordinates/Strain_database)” follows that defined in “[smiles.csv](https://github.com/duartegroup/strain-delocalisation/blob/main/CartesianCoordinates/Strain_database/smiles.csv)” contained within the same subdirectory. Geometries were optimised at the levels of theory described in the corresponding tabs in “[energies.xlsx](https://github.com/duartegroup/strain-delocalisation/blob/main/energies.xlsx)”, the [Supporting Information](https://github.com/duartegroup/strain-delocalisation/blob/main/Supporting_Information.pdf), and below in this readme.
 
 
 #### hydrocarbons_data.csv
 
-The format of hydrocarbons_data.csv is as follows:
+The format of "[hydrocarbons_data.csv](https://github.com/duartegroup/strain-delocalisation/blob/main/hydrocarbons_data.csv)" is as follows:
 
 > *Column:*
 > + 0 - Molecule identifier
@@ -151,7 +143,7 @@ The format of hydrocarbons_data.csv is as follows:
 
 #### amide_data.csv
 
-The format of amide_data.csv is as follows:
+The format of "[amide_data.csv](https://github.com/duartegroup/strain-delocalisation/blob/main/amide_data.csv)" is as follows:
 
 > *Column:*
 > + 0 - Molecule identifier
@@ -177,7 +169,7 @@ The format of amide_data.csv is as follows:
 
 #### Hoz_data.csv
 
-The format of Hoz_data.csv is as follows:
+The format of "[Hoz_data.csv](https://github.com/duartegroup/strain-delocalisation/blob/main/Hoz_data.csv)" is as follows:
 
 > *Column:*
 > + 0 - Reaction type (anionic or radical)
@@ -195,7 +187,7 @@ The format of Hoz_data.csv is as follows:
 
 #### cycloaddition_data.csv
 
-The format of cycloaddition_data.csv is as follows:
+The format of "[cycloaddition_data.csv](https://github.com/duartegroup/strain-delocalisation/blob/main/cycloaddition_data.csv)" is as follows:
 
 > *Column:*
 > + 0 - Alkyne reactant (syn / anti denotes stereochemistry of the product)
@@ -206,7 +198,7 @@ The format of cycloaddition_data.csv is as follows:
 
 #### energies.xlsx
 
-The format of energies.xlsx is as follows:
+The format of "[energies.xlsx](https://github.com/duartegroup/strain-delocalisation/blob/main/energies.xlsx)" is as follows:
 
 *Tab 1*
 

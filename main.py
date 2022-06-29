@@ -8,7 +8,7 @@ from typing import Union
 
 """
 To generate all plots, in the terminal run:
-    for i in {1..14}; do echo $i | python main.py -v; done
+    for i in {1..17}; do echo $i | python main.py -v; done
 """
 
 
@@ -17,7 +17,8 @@ Set data path. Make sure a directory called "pdfs" exists in working
 directory, as plots will be generated here.
 """
 
-path_to_data = "/Users/alistairsterling/OneDrive - Nexus365/Propellanes/Data/To_upload/"
+path_to_data = "/Users/alistairsterling/ajsterling@lbl.gov - Google Drive/My Drive/Postdoc/Legacy/Onedrive_backup/" \
+               "Onedrive-backup/Propellanes/Data/To_upload/"
 
 """
 Parameters for plotting. Changed default font to Helvetica.
@@ -164,6 +165,8 @@ if __name__ == "__main__":
     n3_hydrocarbons = df_hydrocarbons[:, [5]]  # Column 5: Number of 3-membered rings (n3) fused to breaking bond
     reactant_cc_distance = df_hydrocarbons[:, [6]]  # Column 7: Length of breaking C–C bond in reactant
     ts_cc_distance = df_hydrocarbons[:, [7]]  # Column 8: Length of breaking C–C bond in TS
+    homo_energy = df_hydrocarbons[:, [8]]  # Column 9: HOMO energy in Ha
+    lumo_energy = df_hydrocarbons[:, [9]]  # Column 10: LUMO energy in Ha
     x_hydrocarbons = []
 
     """
@@ -222,7 +225,10 @@ if __name__ == "__main__":
                         "Plot 11: y = ∆H‡, x0 = ∆H0, x1 = (∆H0)^2 (CH3• addition)\n"
                         "Plot 12: y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (NH2- addition)\n"
                         "Plot 13: y = ∆H‡, x0 = ∆H0 (cycloaddition); ∆H‡ calc vs pred\n"
-                        "Plot 14: y =∆H‡, x0 = ∆H0, x1 = mean 2-Nocc (cycloaddition)\n"
+                        "Plot 14: y = ∆H‡, x0 = ∆H0, x1 = mean 2-Nocc (cycloaddition)\n"
+                        "Plot 15: y = ∆H‡, x0 = ∆H0, x1 = E_HOMO (CH3• addition)\n"
+                        "Plot 16: y = ∆H‡, x0 = ∆H0, x1 = E_LUMO (CH3• addition)\n"
+                        "Plot 17: y = ∆H‡, x0 = ∆H0, x1 = ∆E_HOMO-LUMO (CH3• addition)\n"
                         "Enter plot number to be generated: ")
 
     if plot_number == "1":
@@ -1074,5 +1080,195 @@ if __name__ == "__main__":
         # plt.savefig(path_to_data + r'/Plot14.png', dpi=300)
         plt.tight_layout()
         plt.savefig(path_to_data + r'pdfs/Plot14.pdf')
+        # plt.show()
+        print(f"Plot number {plot_number} has been generated!")
+
+    if plot_number == "15":
+
+        """
+        Generate linear model from TS enthalpy, reaction enthalpy and HOMO energy
+        """
+
+        print(f"Generating plot {plot_number}...")
+
+        homo_energy_kcal = homo_energy * 627.509
+
+        x_hydrocarbons = np.column_stack((reaction_energy_hydrocarbons,
+                                          homo_energy_kcal))
+        model_hydrocarbons = linear_model(x_hydrocarbons,
+                                          ts_barrier_hydrocarbons)
+        predicted_hydrocarbons = predict_xs(model_hydrocarbons,
+                                            x_hydrocarbons)
+        rmse_hydrocarbons = calc_rmse(ts_barrier_hydrocarbons,
+                                      predicted_hydrocarbons)
+        r_sq2_hydrocarbons = calc_rsq2(model_hydrocarbons,
+                                       x_hydrocarbons,
+                                       ts_barrier_hydrocarbons)
+        delH0_hydrocarbons = model_intercept(model_hydrocarbons)
+        x_coefs_hydrocarbons = x_coefs(model_hydrocarbons)
+        print_model_coefficients(rmse_hydrocarbons,
+                                 r_sq2_hydrocarbons,
+                                 delH0_hydrocarbons,
+                                 x_coefs_hydrocarbons[0],
+                                 x_coefs_hydrocarbons[1],
+                                 None)
+
+        """
+        Plot predicted vs calculated ∆H‡
+        """
+
+        ax.scatter(ts_barrier_hydrocarbons, predicted_hydrocarbons, color='grey')
+
+        ax.set_ylabel('Predicted ∆H$^‡$ / kcal mol$^{-1}$', fontsize=20)
+        ax.set_xlabel('Calculated ∆H$^‡$ / kcal mol$^{-1}$', fontsize=20)
+
+        slope, intercept, r_value, p_value, std_err = linregress(ts_barrier_hydrocarbons[:, 0],
+                                                                 predicted_hydrocarbons[:, 0])
+        print('P-value:', p_value)
+        ax.plot(ts_barrier_hydrocarbons, intercept + slope * ts_barrier_hydrocarbons, color='black')
+        ax.plot(ts_barrier_hydrocarbons, ts_barrier_hydrocarbons, color='#00899d', ls='--', dashes=(5, 5))
+
+        ax.set_ylim(-2, 51)
+        ax.set_yticks(range(0, 60, 10))
+        ax.set_xlim(0, 51)
+        ax.set_xticks(range(0, 60, 10))
+        ax.tick_params(labelsize=20)
+
+        ax.text(1, 47, 'R$^2$ = ' f"{r_sq2_hydrocarbons:.2f}", fontsize=20)
+        ax.text(1, 44, 'RMSE = ' f"{rmse_hydrocarbons:.2}" ' kcal mol$^{-1}$', fontsize=20)
+        ax.text(20, 10, '∆H$^{\u2021}_{int}$ = ' f"{delH0_hydrocarbons:.3}" ' kcal mol$^{-1}$', fontsize=20)
+        ax.text(20, 7, '\u03B1 = ' f"{x_coefs_hydrocarbons[0]:.2}", fontsize=20)
+        ax.text(20, 4, '\u03B2 = ' f"{x_coefs_hydrocarbons[1]:.1f}", fontsize=20)
+
+        # plt.savefig(path_to_data + r'/Plot15.png', dpi=300)
+        plt.tight_layout()
+        plt.savefig(path_to_data + r'pdfs/Plot15.pdf')
+        # plt.show()
+        print(f"Plot number {plot_number} has been generated!")
+
+    if plot_number == "16":
+
+        """
+        Generate linear model from TS enthalpy, reaction enthalpy and LUMO energy
+        """
+
+        print(f"Generating plot {plot_number}...")
+
+        lumo_energy_kcal = lumo_energy * 627.509
+
+        x_hydrocarbons = np.column_stack((reaction_energy_hydrocarbons,
+                                          lumo_energy_kcal))
+        model_hydrocarbons = linear_model(x_hydrocarbons,
+                                          ts_barrier_hydrocarbons)
+        predicted_hydrocarbons = predict_xs(model_hydrocarbons,
+                                            x_hydrocarbons)
+        rmse_hydrocarbons = calc_rmse(ts_barrier_hydrocarbons,
+                                      predicted_hydrocarbons)
+        r_sq2_hydrocarbons = calc_rsq2(model_hydrocarbons,
+                                       x_hydrocarbons,
+                                       ts_barrier_hydrocarbons)
+        delH0_hydrocarbons = model_intercept(model_hydrocarbons)
+        x_coefs_hydrocarbons = x_coefs(model_hydrocarbons)
+        print_model_coefficients(rmse_hydrocarbons,
+                                 r_sq2_hydrocarbons,
+                                 delH0_hydrocarbons,
+                                 x_coefs_hydrocarbons[0],
+                                 x_coefs_hydrocarbons[1],
+                                 None)
+
+        """
+        Plot predicted vs calculated ∆H‡
+        """
+
+        ax.scatter(ts_barrier_hydrocarbons, predicted_hydrocarbons, color='grey')
+
+        ax.set_ylabel('Predicted ∆H$^‡$ / kcal mol$^{-1}$', fontsize=20)
+        ax.set_xlabel('Calculated ∆H$^‡$ / kcal mol$^{-1}$', fontsize=20)
+
+        slope, intercept, r_value, p_value, std_err = linregress(ts_barrier_hydrocarbons[:, 0],
+                                                                 predicted_hydrocarbons[:, 0])
+        print('P-value:', p_value)
+        ax.plot(ts_barrier_hydrocarbons, intercept + slope * ts_barrier_hydrocarbons, color='black')
+        ax.plot(ts_barrier_hydrocarbons, ts_barrier_hydrocarbons, color='#00899d', ls='--', dashes=(5, 5))
+
+        ax.set_ylim(-2, 51)
+        ax.set_yticks(range(0, 60, 10))
+        ax.set_xlim(0, 51)
+        ax.set_xticks(range(0, 60, 10))
+        ax.tick_params(labelsize=20)
+
+        ax.text(1, 47, 'R$^2$ = ' f"{r_sq2_hydrocarbons:.2f}", fontsize=20)
+        ax.text(1, 44, 'RMSE = ' f"{rmse_hydrocarbons:.2}" ' kcal mol$^{-1}$', fontsize=20)
+        ax.text(20, 10, '∆H$^{\u2021}_{int}$ = ' f"{delH0_hydrocarbons:.3}" ' kcal mol$^{-1}$', fontsize=20)
+        ax.text(20, 7, '\u03B1 = ' f"{x_coefs_hydrocarbons[0]:.2}", fontsize=20)
+        ax.text(20, 4, '\u03B2 = ' f"{x_coefs_hydrocarbons[1]:.1f}", fontsize=20)
+
+        # plt.savefig(path_to_data + r'/Plot16.png', dpi=300)
+        plt.tight_layout()
+        plt.savefig(path_to_data + r'pdfs/Plot16.pdf')
+        # plt.show()
+        print(f"Plot number {plot_number} has been generated!")
+
+    if plot_number == "17":
+
+        """
+        Generate linear model from TS enthalpy, reaction enthalpy and HOMO-LUMO gap
+        """
+
+        print(f"Generating plot {plot_number}...")
+
+        homo_lumo_gap = lumo_energy - homo_energy
+        homo_lumo_gap_kcal = homo_lumo_gap * 627.509
+
+        x_hydrocarbons = np.column_stack((reaction_energy_hydrocarbons,
+                                          homo_lumo_gap_kcal))
+        model_hydrocarbons = linear_model(x_hydrocarbons,
+                                          ts_barrier_hydrocarbons)
+        predicted_hydrocarbons = predict_xs(model_hydrocarbons,
+                                            x_hydrocarbons)
+        rmse_hydrocarbons = calc_rmse(ts_barrier_hydrocarbons,
+                                      predicted_hydrocarbons)
+        r_sq2_hydrocarbons = calc_rsq2(model_hydrocarbons,
+                                       x_hydrocarbons,
+                                       ts_barrier_hydrocarbons)
+        delH0_hydrocarbons = model_intercept(model_hydrocarbons)
+        x_coefs_hydrocarbons = x_coefs(model_hydrocarbons)
+        print_model_coefficients(rmse_hydrocarbons,
+                                 r_sq2_hydrocarbons,
+                                 delH0_hydrocarbons,
+                                 x_coefs_hydrocarbons[0],
+                                 x_coefs_hydrocarbons[1],
+                                 None)
+
+        """
+        Plot predicted vs calculated ∆H‡
+        """
+
+        ax.scatter(ts_barrier_hydrocarbons, predicted_hydrocarbons, color='grey')
+
+        ax.set_ylabel('Predicted ∆H$^‡$ / kcal mol$^{-1}$', fontsize=20)
+        ax.set_xlabel('Calculated ∆H$^‡$ / kcal mol$^{-1}$', fontsize=20)
+
+        slope, intercept, r_value, p_value, std_err = linregress(ts_barrier_hydrocarbons[:, 0],
+                                                                 predicted_hydrocarbons[:, 0])
+        print('P-value:', p_value)
+        ax.plot(ts_barrier_hydrocarbons, intercept + slope * ts_barrier_hydrocarbons, color='black')
+        ax.plot(ts_barrier_hydrocarbons, ts_barrier_hydrocarbons, color='#00899d', ls='--', dashes=(5, 5))
+
+        ax.set_ylim(-2, 51)
+        ax.set_yticks(range(0, 60, 10))
+        ax.set_xlim(0, 51)
+        ax.set_xticks(range(0, 60, 10))
+        ax.tick_params(labelsize=20)
+
+        ax.text(1, 47, 'R$^2$ = ' f"{r_sq2_hydrocarbons:.2f}", fontsize=20)
+        ax.text(1, 44, 'RMSE = ' f"{rmse_hydrocarbons:.2}" ' kcal mol$^{-1}$', fontsize=20)
+        ax.text(20, 10, '∆H$^{\u2021}_{int}$ = ' f"{delH0_hydrocarbons:.3}" ' kcal mol$^{-1}$', fontsize=20)
+        ax.text(20, 7, '\u03B1 = ' f"{x_coefs_hydrocarbons[0]:.2}", fontsize=20)
+        ax.text(20, 4, '\u03B2 = ' f"{x_coefs_hydrocarbons[1]:.1f}", fontsize=20)
+
+        # plt.savefig(path_to_data + r'/Plot17.png', dpi=300)
+        plt.tight_layout()
+        plt.savefig(path_to_data + r'pdfs/Plot17.pdf')
         # plt.show()
         print(f"Plot number {plot_number} has been generated!")

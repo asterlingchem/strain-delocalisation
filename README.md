@@ -91,7 +91,7 @@ This readme contains information on the supporting data that accompanies the man
 
 "main.py" is a script to plot all figures. Multiple linear regression is carried out using the [Scikit-learn](https://scikit-learn.org/stable/) Python package, and plotting is done using [Matplotlib](https://matplotlib.org). "main.py" can either be run interactively, or to generate all plots, run:
 
->	for i in {1..14}; do echo $i | python main.py -v; done
+>	for i in {1..17}; do echo $i | python main.py -v; done
 
 Plots are generated inside the “pdfs” directory. Each plot contains the following:
 + [Plot 1](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot1.pdf): y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (CH3• addition)
@@ -109,8 +109,8 @@ Plots are generated inside the “pdfs” directory. Each plot contains the foll
 + [Plot 13](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot13.pdf): y = ∆H‡, x0 = ∆H0 (cycloaddition); ∆H‡ calc vs pred
 + [Plot 14](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot14.pdf): y = ∆H‡, x0 = ∆H0, x1 = mean 2-Nocc (cycloaddition)
 + [Plot 15](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot15.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_HOMO (CH3• addition)
-+ [Plot 16](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot15.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_LUMO (CH3• addition)
-+ [Plot 17](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot15.pdf): y = ∆H‡, x0 = ∆H0, x1 = ∆E_HOMO-LUMO (CH3• addition)
++ [Plot 16](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot16.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_LUMO (CH3• addition)
++ [Plot 17](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot17.pdf): y = ∆H‡, x0 = ∆H0, x1 = ∆E_HOMO-LUMO (CH3• addition)
 
 
 #### Cartesian coordinates

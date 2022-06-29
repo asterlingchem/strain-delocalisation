@@ -65,6 +65,9 @@ This readme contains information on the supporting data that accompanies the man
 					Plot12.pdf
 					Plot13.pdf
 					Plot14.pdf
+					Plot15.pdf
+					Plot16.pdf
+					Plot17.pdf
 
 	amide_data.csv
 	cycloaddition_data.csv
@@ -104,7 +107,10 @@ Plots are generated inside the “pdfs” directory. Each plot contains the foll
 + [Plot 11](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot11.pdf): y = ∆H‡, x0 = ∆H0, x1 = (∆H0)^2 (CH3• addition)
 + [Plot 12](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot12.pdf): y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (NH2- addition)
 + [Plot 13](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot13.pdf): y = ∆H‡, x0 = ∆H0 (cycloaddition); ∆H‡ calc vs pred
-+ [Plot 14](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot14.pdf): y =∆H‡, x0 = ∆H0, x1 = mean 2-Nocc (cycloaddition)
++ [Plot 14](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot14.pdf): y = ∆H‡, x0 = ∆H0, x1 = mean 2-Nocc (cycloaddition)
++ [Plot 15](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot15.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_HOMO (CH3• addition)
++ [Plot 16](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot15.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_LUMO (CH3• addition)
++ [Plot 17](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot15.pdf): y = ∆H‡, x0 = ∆H0, x1 = ∆E_HOMO-LUMO (CH3• addition)
 
 
 #### Cartesian coordinates
@@ -125,6 +131,8 @@ The format of "[hydrocarbons_data.csv](https://github.com/duartegroup/strain-del
 > + 5 - Number of three membered rings appended to breaking bond
 > + 6 - SM breaking C-C / Angstrom
 > + 7 - TS breaking C-C / Angstrom
+> + 8 - HOMO energy associated with breaking bond / Ha
+> + 9 - LUMO energy associated with breaking bond / Ha
 >
 > *Row:*
 > + 1 - ethane, **A**

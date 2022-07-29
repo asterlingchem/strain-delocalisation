@@ -786,19 +786,27 @@ if __name__ == "__main__":
 
         heteroatoms = heteroatom_type_hoz
 
-        colour_list = ['darkblue', 'red', 'deepskyblue', 'mediumorchid', 'orange']
+        colour_list = ['darkgrey', 'red', 'deepskyblue', 'mediumorchid', 'orange']
 
-        marker_list = ['o', 'v', '^', 's', 'D']
+        marker_list = ['o', 'x']
 
-
-        def x_value_for_heteroatom(arr, heteroatom):
-            return [x_value for index, x_value in enumerate(arr) if heteroatoms[index] == heteroatom]
+        reaction_type = reaction_type_hoz
 
 
-        for idx, symbol in enumerate(('C', 'O', 'N', 'P', 'S')):
-            ax.scatter(x_value_for_heteroatom(marcus_predicted_hoz, heteroatom=symbol),
-                       x_value_for_heteroatom(marcus_error_hoz, heteroatom=symbol), color=colour_list[idx],
-                       marker=marker_list[idx])
+        def x_value_for_reaction_type(arr, reaction_types):
+            return [x_value for index, x_value in enumerate(arr) if reaction_type[index] == reaction_types]
+
+
+        def x_value_for_rxn_heteroatom(arr, reaction_types, heteroatom):
+            return [x_value for index, x_value in enumerate(arr) if reaction_type[index] == reaction_types and heteroatoms[index] == heteroatom]
+
+
+        for idx, rxn_type in enumerate(('anionic', 'radical')):
+            for jdx, symbol in enumerate(('C', 'O', 'N', 'P', 'S')):
+                ax.scatter(x_value_for_rxn_heteroatom(marcus_predicted_hoz, reaction_types=rxn_type, heteroatom=symbol),
+                           x_value_for_rxn_heteroatom(marcus_error_hoz, reaction_types=rxn_type, heteroatom=symbol),
+                           color=colour_list[jdx],
+                           marker=marker_list[idx])
 
         ax.set_ylabel('Marcus $E_a$ error / kcal mol$^{-1}$', fontsize=20)
         ax.set_xlabel('Predicted $E_a$ error / kcal mol$^{-1}$', fontsize=20)
@@ -806,7 +814,7 @@ if __name__ == "__main__":
         slope, intercept, r_value, p_value, std_err = linregress(marcus_predicted_hoz[:, 0], marcus_error_hoz[:, 0])
         print(f'P-value: {p_value:.2g}')
         ax.plot(marcus_predicted_hoz, intercept + slope * marcus_predicted_hoz, color='black')
-        ax.plot(marcus_predicted_hoz, marcus_predicted_hoz, color='#00899d', ls='--', dashes=(5, 5))
+        # ax.plot(marcus_predicted_hoz, marcus_predicted_hoz, color='#00899d', ls='--', dashes=(5, 5))
 
         ax.set_ylim(-3, 22)
         ax.set_yticks(range(0, 25, 5))
@@ -816,11 +824,15 @@ if __name__ == "__main__":
 
         ax.text(-2, 20, 'R$^2$ = ' f"{marcus_r_sq2_hoz:.2f}", fontsize=20)
         ax.text(-2, 18, 'RMSE = ' f"{marcus_rmse_hoz:.2}" ' kcal mol$^{-1}$', fontsize=20)
+        plt.text(-2, 15.65, '•', fontsize=30, color='black')
+        plt.text(-1, 16, 'anionic', fontsize=20, color='black')
+        plt.text(-2, 14, r'$\times$', fontsize=15, color='black')
+        plt.text(-1, 14, 'radical', fontsize=20, color='black')
         ax.text(4, 1,
                 'Predicted $E_a$ error = ' f"{marcus_x_coefs_hoz[0]:.2}" '$n_3 +$ ' f"{abs(marcus_intercept_hoz):.1f}",
                 fontsize=20)
 
-        plt.figtext(0.225, 0.90, '•', fontsize=30, color='darkblue')
+        plt.figtext(0.225, 0.90, '•', fontsize=30, color='darkgrey')
         plt.figtext(0.250, 0.91, 'C–C', fontsize=20)
         plt.figtext(0.350, 0.90, '•', fontsize=30, color='deepskyblue')
         plt.figtext(0.375, 0.91, 'C–N', fontsize=20)
@@ -1049,6 +1061,8 @@ if __name__ == "__main__":
                                  x_coefs_cycloaddition[0],
                                  x_coefs_cycloaddition[1],
                                  None)
+
+        print(ts_barrier_cycloaddition, predicted_cycloaddition)
 
         """
         Plot predicted vs calculated ∆H‡

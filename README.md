@@ -1,4 +1,4 @@
-# Supporting information readme for "Delocalisation-enabled organic reactivity"
+# Supporting information readme for "Beyond strain release: Delocalization-enabled organic reactivity"
 
 ## Alistair J. Sterling, Russell C. Smith, Edward A. Anderson & Fernanda Duarte
 
@@ -68,12 +68,17 @@ This readme contains information on the supporting data that accompanies the man
 					Plot15.pdf
 					Plot16.pdf
 					Plot17.pdf
+					Plot18.pdf
+					Plot19.pdf
+					Plot20.pdf
 
 	amide_data.csv
 	cycloaddition_data.csv
 	Hoz_data.csv
 	hydrocarbons_data.csv
+	SRE.csv
 
+	SRE.xlsx
 	energies.xlsx
 
 	main.py
@@ -87,31 +92,48 @@ This readme contains information on the supporting data that accompanies the man
 
 "[Supporting_Information.pdf](https://github.com/duartegroup/strain-delocalisation/blob/main/Supporting_Information.pdf)" contains a detailed description of the methodologies employed in this work, as well as supplementary figures, tables, and references.
 
+#### SRE.csv
+
+"SRE.csv" is a database containing strain release energies (kcal/mol) of unique bonds of 35 molecules (81 total data points). 
+The columns contain the following information:
+
+*Column:*
++ 0 - Name of strained molecule
++ 1 - Name of unstrained product molecule
++ 2 - SMILES string representation of balanced reaction to obtain strain release energy, where dots (".") are used to separate individual molecules, and a double chevron (">>") indicates the reaction arrow
++ 3 - Bond type designation, when there are multiple unique bond types in a given molecule
++ 4 - Strain release energy (SRE, kcal/mol)
++ 5 - Delocalisation value for the breaking bond (2–Nocc, *e*)
+
+N.B. Strain release energy is defined as the change in enthalpy (∆H in kcal/mol) at the DLPNO-CCSD(T)/def2-QZVPP//B2PLYP-D3BJ/def2-TZVP level, and 2–Nocc values (in *e*) at are obtained from the B2PLYP/def2-TZVP relaxed density.
+
 #### main.py
 
 "main.py" is a script to plot all figures. Multiple linear regression is carried out using the [Scikit-learn](https://scikit-learn.org/stable/) Python package, and plotting is done using [Matplotlib](https://matplotlib.org). "main.py" can either be run interactively, or to generate all plots, run:
 
->	for i in {1..17}; do echo $i | python main.py -v; done
+>	for i in {1..20}; do echo $i | python main.py -v; done
 
 Plots are generated inside the “pdfs” directory. Each plot contains the following:
 + [Plot 1](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot1.pdf): y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (CH3• addition)
-+ [Plot 2](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot2.pdf): y = ∆H‡, x0 = ∆H0, x1 = 1-ELF (CH3• addition)
++ [Plot 2](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot2.pdf): y = ∆H‡, x0 = ∆H0, x1 = D/D_0 (CH3• addition)
 + [Plot 3](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot3.pdf): y = ∆H‡, x0 = ∆H0, x1 = n3 (CH3• addition)
 + [Plot 4](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot4.pdf): y = ∆H‡, x0 = ∆H0 (CH3• addition); ∆Hr vs ∆H‡
 + [Plot 5](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot5.pdf): y = ∆H‡, x0 = ∆H0 (CH3• addition); ∆H‡ calc vs pred
 + [Plot 6](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot6.pdf): y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc, x2 = (∆H0)^2 (CH3• addition)
-+ [Plot 7](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot7.pdf): y = ∆H‡, x0 = ∆H0, x1 = 1-ELF, x2 = (∆H0)^2 (CH3• addition)
++ [Plot 7](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot7.pdf): y = ∆H‡, x0 = ∆H0, x1 = D/D_0, x2 = (∆H0)^2 (CH3• addition)
 + [Plot 8](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot8.pdf): y = ∆H‡, x0 = (∆r‡)^2 (CH3• addition)
-+ [Plot 9](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot9.pdf): y = ∆H‡, x0 = ∆H0, x1 = n3 (NH2- addition)
-+ [Plot 10](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot10.pdf): y = Marcus Ea error, x0 = n3 (heterosubstitution)
-+ [Plot 11](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot11.pdf): y = ∆H‡, x0 = ∆H0, x1 = (∆H0)^2 (CH3• addition)
-+ [Plot 12](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot12.pdf): y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (NH2- addition)
-+ [Plot 13](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot13.pdf): y = ∆H‡, x0 = ∆H0 (cycloaddition); ∆H‡ calc vs pred
-+ [Plot 14](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot14.pdf): y = ∆H‡, x0 = ∆H0, x1 = mean 2-Nocc (cycloaddition)
-+ [Plot 15](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot15.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_HOMO (CH3• addition)
-+ [Plot 16](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot16.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_LUMO (CH3• addition)
-+ [Plot 17](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot17.pdf): y = ∆H‡, x0 = ∆H0, x1 = ∆E_HOMO-LUMO (CH3• addition)
-
++ [Plot 9](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot9.pdf): y = (∆r‡)^2, x0 = ∆H0 (CH3• addition)
++ [Plot 10](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot10.pdf): y = ∆r‡, x0 = ∆H0, x1 = 2-Nocc (CH3• addition)
++ [Plot 11](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot11.pdf): y = ∆r‡, x0 = ∆H0, x1 = D/D_0 (CH3• addition)
++ [Plot 12](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot12.pdf): y = ∆H‡, x0 = ∆H0, x1 = n3 (NH2- addition)
++ [Plot 13](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot13.pdf): y = Marcus Ea error, x0 = n3 (heterosubstitution)
++ [Plot 14](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot14.pdf): y = ∆H‡, x0 = ∆H0, x1 = (∆H0)^2 (CH3• addition)
++ [Plot 15](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot15.pdf): y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (NH2- addition)
++ [Plot 16](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot16.pdf): y = ∆H‡, x0 = ∆H0 (cycloaddition); ∆H‡ calc vs pred
++ [Plot 17](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot17.pdf): y = ∆H‡, x0 = ∆H0, x1 = mean 2-Nocc (cycloaddition)
++ [Plot 18](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot18.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_HOMO (CH3• addition)
++ [Plot 19](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot19.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_LUMO (CH3• addition)
++ [Plot 20](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot20.pdf): y = ∆H‡, x0 = ∆H0, x1 = ∆E_HOMO-LUMO (CH3• addition)
 
 #### Cartesian coordinates
 

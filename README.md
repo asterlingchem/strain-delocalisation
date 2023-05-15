@@ -1,4 +1,4 @@
-# Supporting information readme for "Delocalisation-enabled organic reactivity"
+# Supporting information readme for "Beyond strain release: Delocalization-enabled organic reactivity"
 
 ## Alistair J. Sterling, Russell C. Smith, Edward A. Anderson & Fernanda Duarte
 

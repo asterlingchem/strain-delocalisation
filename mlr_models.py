@@ -1551,8 +1551,6 @@ if __name__ == "__main__":
         x = np.column_stack((reaction_energy_amide,
                              elf_amide))
 
-        print(x)
-
         model_amide = linear_model(x,
                                    ts_barrier_amide)
         predicted_amide = predict_xs(model_amide,

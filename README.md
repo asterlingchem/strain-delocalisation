@@ -71,6 +71,7 @@ This readme contains information on the supporting data that accompanies the man
 					Plot18.pdf
 					Plot19.pdf
 					Plot20.pdf
+                        		Plot21.pdf
 
 	amide_data.csv
 	cycloaddition_data.csv
@@ -81,7 +82,7 @@ This readme contains information on the supporting data that accompanies the man
 	SRE.xlsx
 	energies.xlsx
 
-	main.py
+	mlr_models.py
 	
 	Supporting_Information.pdf
 
@@ -107,11 +108,11 @@ The columns contain the following information:
 
 N.B. Strain release energy is defined as the change in enthalpy (∆H in kcal/mol) at the DLPNO-CCSD(T)/def2-QZVPP//B2PLYP-D3BJ/def2-TZVP level, and 2–Nocc values (in *e*) at are obtained from the B2PLYP/def2-TZVP relaxed density.
 
-#### main.py
+#### mlr_models.py
 
-"main.py" is a script to plot all figures. Multiple linear regression is carried out using the [Scikit-learn](https://scikit-learn.org/stable/) Python package, and plotting is done using [Matplotlib](https://matplotlib.org). "main.py" can either be run interactively, or to generate all plots, run:
+"mlr_models.py" is a script to plot all figures. Multiple linear regression is carried out using the [Scikit-learn](https://scikit-learn.org/stable/) Python package, and plotting is done using [Matplotlib](https://matplotlib.org). "mlr_models.py" can either be run interactively, or to generate all plots, run:
 
->	for i in {1..20}; do echo $i | python main.py -v; done
+>	for i in {1..21}; do echo $i | python mlr_models.py -v; done
 
 Plots are generated inside the “pdfs” directory. Each plot contains the following:
 + [Plot 1](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot1.pdf): y = ∆H‡, x0 = ∆H0, x1 = 2-Nocc (CH3• addition)
@@ -134,6 +135,7 @@ Plots are generated inside the “pdfs” directory. Each plot contains the foll
 + [Plot 18](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot18.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_HOMO (CH3• addition)
 + [Plot 19](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot19.pdf): y = ∆H‡, x0 = ∆H0, x1 = E_LUMO (CH3• addition)
 + [Plot 20](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot20.pdf): y = ∆H‡, x0 = ∆H0, x1 = ∆E_HOMO-LUMO (CH3• addition)
++ [Plot 21](https://github.com/duartegroup/strain-delocalisation/tree/main/pdfs/Plot21.pdf): y = ∆H‡, x0 = ∆H0, x1 = D/D_0 (NH2- addition)
 
 #### Cartesian coordinates
 

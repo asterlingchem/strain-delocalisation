@@ -110,7 +110,7 @@ def model_intercept(lin_model: LinearRegression) -> float:
 
 def x_coefs(lin_model: LinearRegression) -> list:
     """
-    Returns first x coefficient ( for the linear model defined in linear_model()
+    Returns x coefficients for the linear model defined in linear_model()
     """
 
     x_coef = lin_model.coef_.reshape((-1, 1))
@@ -195,6 +195,7 @@ if __name__ == "__main__":
     reaction_energy_amide = df_amide[:, [2]]  # Column 2: Reaction enthalpy, ∆H0, in kcal/mol
     n3_amide = df_amide[:, [3]]  # Column 3: Number of 3-membered rings (n3) fused to breaking bond
     two_minus_nocc_amide = df_amide[:, [4]]  # Column 4: Delocalisation from NBO parameter, 2-Nocc
+    elf_amide = df_amide[:, [5]]  # Column 5: 1-ELF at bond critical point
     x_amide = []
 
     """
@@ -248,15 +249,24 @@ if __name__ == "__main__":
                         "Plot 18: y = ∆H‡, x0 = ∆H0, x1 = E_HOMO (CH3• addition)\n"
                         "Plot 19: y = ∆H‡, x0 = ∆H0, x1 = E_LUMO (CH3• addition)\n"
                         "Plot 20: y = ∆H‡, x0 = ∆H0, x1 = ∆E_HOMO-LUMO (CH3• addition)\n"
+                        "Plot 21: y = ∆H‡, x0 = ∆H0, x1 = D/D_0 (NH2- addition)\n"
                         "Enter plot number to be generated: ")
 
     if plot_number == "1":
 
         """
-        Generate linear model from TS enthalpy, reaction enthalpy and 2-Nocc
+        Generate linear model from TS enthalpy, reaction enthalpy and 2-Nocc for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
+
+        # scaled_two_minus_nocc_hydrocarbons = np.array(two_minus_nocc_hydrocarbons)
+        # scaled_two_minus_nocc_hydrocarbons = (scaled_two_minus_nocc_hydrocarbons \
+        #                                       - np.min(scaled_two_minus_nocc_hydrocarbons)) \
+        #                                       / (np.max(scaled_two_minus_nocc_hydrocarbons \
+        #                                       - np.min(scaled_two_minus_nocc_hydrocarbons)))
+        # print(scaled_two_minus_nocc_hydrocarbons)
+        # x_hydrocarbons = np.column_stack((reaction_energy_hydrocarbons, scaled_two_minus_nocc_hydrocarbons))
 
         x_hydrocarbons = np.column_stack((reaction_energy_hydrocarbons, two_minus_nocc_hydrocarbons))
         model_hydrocarbons = linear_model(x_hydrocarbons, ts_barrier_hydrocarbons)
@@ -304,7 +314,7 @@ if __name__ == "__main__":
     if plot_number == "2":
 
         """
-        Generate linear model from TS enthalpy, reaction enthalpy and D/D_0
+        Generate linear model from TS enthalpy, reaction enthalpy and D/D_0 for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -316,8 +326,16 @@ if __name__ == "__main__":
         ts_barrier_hydrocarbons, reaction_energy_hydrocarbons, elf_hydrocarbons = (x_hydrocarbons[:, [0]],
                                                                                    x_hydrocarbons[:, [1]],
                                                                                    x_hydrocarbons[:, [2]])
-        x_hydrocarbons = np.column_stack((reaction_energy_hydrocarbons, elf_hydrocarbons))
 
+        # scaled_elf_hydrocarbons = np.array(elf_hydrocarbons)
+        # scaled_elf_hydrocarbons = (scaled_elf_hydrocarbons \
+        #                            - np.min(scaled_elf_hydrocarbons)) \
+        #                            / (np.max(scaled_elf_hydrocarbons \
+        #                            - np.min(scaled_elf_hydrocarbons)))
+        # print(scaled_elf_hydrocarbons)
+        # x_hydrocarbons = np.column_stack((reaction_energy_hydrocarbons, scaled_elf_hydrocarbons))
+
+        x_hydrocarbons = np.column_stack((reaction_energy_hydrocarbons, elf_hydrocarbons))
         model_hydrocarbons = linear_model(x_hydrocarbons, ts_barrier_hydrocarbons)
         predicted_hydrocarbons = predict_xs(model_hydrocarbons, x_hydrocarbons)
         rmse_hydrocarbons = calc_rmse(ts_barrier_hydrocarbons, predicted_hydrocarbons)
@@ -363,7 +381,7 @@ if __name__ == "__main__":
     if plot_number == "3":
 
         """
-        Generate linear model from TS enthalpy, reaction enthalpy and n3
+        Generate linear model from TS enthalpy, reaction enthalpy and n3 for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -414,7 +432,7 @@ if __name__ == "__main__":
     if plot_number == "4":
 
         """
-        Generate linear model from TS enthalpy and reaction enthalpy (∆Hr vs ∆H‡)
+        Generate linear model from TS enthalpy and reaction enthalpy (∆Hr vs ∆H‡) for CH3•
         """
 
         print(f"Generating plot {plot_number}...")
@@ -465,7 +483,7 @@ if __name__ == "__main__":
     if plot_number == "5":
 
         """
-        Generate linear model from TS enthalpy and reaction enthalpy (∆H‡ predicted vs calculated)
+        Generate linear model from TS enthalpy and reaction enthalpy (∆H‡ predicted vs calculated) for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -516,7 +534,7 @@ if __name__ == "__main__":
     if plot_number == "6":
 
         """
-        Generate linear model from TS enthalpy, reaction enthalpy, 2-Nocc and squared reaction enthalpy
+        Generate linear model from TS enthalpy, reaction enthalpy, 2-Nocc and squared reaction enthalpy for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -581,7 +599,7 @@ if __name__ == "__main__":
     if plot_number == "7":
 
         """
-        Generate linear model from TS enthalpy, reaction enthalpy, D/D_0 and squared reaction enthalpy
+        Generate linear model from TS enthalpy, reaction enthalpy, D/D_0 and squared reaction enthalpy for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -655,7 +673,7 @@ if __name__ == "__main__":
     if plot_number == "8":
 
         """
-        Generate linear model from TS barrier and (∆r‡)^2
+        Generate linear model from TS barrier and (∆r‡)^2 for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -716,7 +734,7 @@ if __name__ == "__main__":
     if plot_number == "9":
 
         """
-        Generate linear model from (∆r‡)^2 and reaction enthalpy
+        Generate linear model from (∆r‡)^2 and reaction enthalpy for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -1080,7 +1098,7 @@ if __name__ == "__main__":
 
         """
         Generate linear model from TS enthalpy, reaction enthalpy, and squared reaction enthalpy
-        (i.e. Marcus equation)
+        (i.e. Marcus equation) for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -1204,7 +1222,7 @@ if __name__ == "__main__":
     if plot_number == "16":
 
         """
-        Generate linear model from TS enthalpy and reaction enthalpy (∆H‡ predicted vs calculated)
+        Generate linear model from TS enthalpy and reaction enthalpy (∆H‡ predicted vs calculated) for cycloadditions
         """
 
         print(f"Generating plot {plot_number}...")
@@ -1264,7 +1282,7 @@ if __name__ == "__main__":
     if plot_number == "17":
 
         """
-        Generate linear model from TS enthalpy, reaction enthalpy and 2-Nocc
+        Generate linear model from TS enthalpy, reaction enthalpy and 2-Nocc for cycloadditions
         """
 
         print(f"Generating plot {plot_number}...")
@@ -1327,7 +1345,7 @@ if __name__ == "__main__":
     if plot_number == "18":
 
         """
-        Generate linear model from TS enthalpy, reaction enthalpy and HOMO energy
+        Generate linear model from TS enthalpy, reaction enthalpy and HOMO energy for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -1390,7 +1408,7 @@ if __name__ == "__main__":
     if plot_number == "19":
 
         """
-        Generate linear model from TS enthalpy, reaction enthalpy and LUMO energy
+        Generate linear model from TS enthalpy, reaction enthalpy and LUMO energy for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -1453,7 +1471,7 @@ if __name__ == "__main__":
     if plot_number == "20":
 
         """
-        Generate linear model from TS enthalpy, reaction enthalpy and HOMO-LUMO gap
+        Generate linear model from TS enthalpy, reaction enthalpy and HOMO-LUMO gap for CH3• addition
         """
 
         print(f"Generating plot {plot_number}...")
@@ -1509,6 +1527,75 @@ if __name__ == "__main__":
         ax.text(20, 4, '\u03B2 = ' f"{x_coefs_hydrocarbons[1]:.1f}", fontsize=20)
 
         # plt.savefig(path_to_data + r'/Plot20.png', dpi=300)
+        plt.tight_layout()
+        plt.savefig(pdf_dir + f'Plot{plot_number}.pdf')
+        # plt.show()
+        print(f"Plot number {plot_number} has been generated!")
+
+    if plot_number == "21":
+
+        """
+        Generate linear model from TS enthalpy, reaction enthalpy and D/D_0 for NH2- addition
+        """
+
+        print(f"Generating plot {plot_number}...")
+
+        elf_amide = calc_chi_from_elf(elf_amide)
+
+        x_amide = np.column_stack((ts_barrier_amide, reaction_energy_amide, elf_amide))
+        x_amide = x_amide[~np.isnan(x_amide).any(axis=1)]  # remove nan rows in data
+        ts_barrier_amide, reaction_energy_amide, elf_amide = (x_amide[:, [0]],
+                                                              x_amide[:, [1]],
+                                                              x_amide[:, [2]])
+
+        x = np.column_stack((reaction_energy_amide,
+                             elf_amide))
+
+        model_amide = linear_model(x,
+                                   ts_barrier_amide)
+        predicted_amide = predict_xs(model_amide,
+                                     x)
+        rmse_amide = calc_rmse(ts_barrier_amide,
+                               predicted_amide)
+        r_sq2_amide = calc_rsq2(model_amide,
+                                x,
+                                ts_barrier_amide)
+        delH0_amide = model_intercept(model_amide)
+        x_coefs_amide = x_coefs(model_amide)
+        print_model_coefficients(rmse_amide,
+                                 r_sq2_amide,
+                                 delH0_amide,
+                                 x_coefs_amide[0],
+                                 x_coefs_amide[1],
+                                 None)
+
+        """
+        Plot predicted vs calculated ∆H‡
+        """
+
+        ax.scatter(ts_barrier_amide, predicted_amide, color='grey')
+
+        ax.set_ylabel('Predicted ∆H$^‡$ / kcal mol$^{-1}$', fontsize=20)
+        ax.set_xlabel('Calculated ∆H$^‡$ / kcal mol$^{-1}$', fontsize=20)
+
+        slope, intercept, r_value, p_value, std_err = linregress(ts_barrier_amide[:, 0], predicted_amide[:, 0])
+        print(f'P-value: {p_value:.2g}')
+        ax.plot(ts_barrier_amide, intercept + slope * ts_barrier_amide, color='black')
+        ax.plot(ts_barrier_amide, ts_barrier_amide, color='#00899d', ls='--', dashes=(5, 5))
+
+        ax.set_ylim(0, 71)
+        ax.set_yticks(range(0, 80, 10))
+        ax.set_xlim(0, 71)
+        ax.set_xticks(range(0, 80, 10))
+        ax.tick_params(labelsize=20)
+
+        ax.text(1, 66, 'R$^2$ = ' f"{r_sq2_amide:.2f}", fontsize=20)
+        ax.text(1, 62, 'RMSE = ' f"{rmse_amide:.2}" ' kcal mol$^{-1}$', fontsize=20)
+        ax.text(30, 15, '∆H$^{\u2021}_{int}(0)$ = ' f"{delH0_amide:.3}" ' kcal mol$^{-1}$', fontsize=20)
+        ax.text(30, 11, '\u03B1 = ' f"{x_coefs_amide[0]:.2}", fontsize=20)
+        ax.text(30, 7, '\u03B2 = ' f"{x_coefs_amide[1]:.1f}" ' kcal mol$^{-1}$ e$^{-1}$', fontsize=20)
+
+        # plt.savefig(path_to_data + r'/Plot15.png', dpi=300)
         plt.tight_layout()
         plt.savefig(pdf_dir + f'Plot{plot_number}.pdf')
         # plt.show()
